@@ -44,7 +44,7 @@ export default function usePose(callback) {
   const videoRef = useRef();
   const posenetRef = useRef();
   const [state, dispatch] = useReducer(reducer, defaultState);
-  let animationId;
+  let intervalId;
 
   /* load posenet */
   useEffect(() => {
@@ -65,18 +65,19 @@ export default function usePose(callback) {
   useEffect(() => {
     /* only run when model is loaded */
     if (state.status !== "success") return;
-
     async function loop() {
       const pose = await estimatePoseOnVideo(
         posenetRef.current,
         videoRef.current
       );
       callback(pose);
-      animationId = requestAnimationFrame(loop);
     }
-    animationId = requestAnimationFrame(loop);
+    intervalId = setInterval(loop, 100);
     /* clear animation */
-    return () => animationId && cancelAnimationFrame(id);
+    return () => {
+      console.log("cancel");
+      intervalId && clearInterval(intervalId);
+    };
   }, [callback, state]);
 
   return [videoRef, state];
