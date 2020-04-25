@@ -6,4 +6,14 @@
 
 video {
   transform: rotateY(180deg);
+  opacity: 0.5;
+}
+
+.canvas-container {
+  display: grid;
+}
+
+.canvas-container > * {
+  grid-area: 1 / 1;
+  width: 100%;
 }

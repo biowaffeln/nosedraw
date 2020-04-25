@@ -63,6 +63,7 @@ export default function usePose(callback) {
 
   /* setup animation */
   useEffect(() => {
+    /* only run when model is loaded */
     if (state.status !== "success") return;
 
     async function loop() {
