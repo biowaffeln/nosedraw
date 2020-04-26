@@ -20,13 +20,15 @@ const SaveImage = ({ canvas, className }) => {
     <div className={className}>
       <p className="text-xl">Done drawing?</p>
       <a
-        className="inline-block text-2xl border-b-2 border-indigo-600"
+        className="inline-block text-2xl"
         download={"nosedraw.jpg"}
         href={canvas
           ?.toDataURL("image/png")
           .replace("image/png", "image/octet-stream")}
       >
-        Click here to download your image!
+        <span className="leading-relaxed border-b-2 border-indigo-600">
+          Click here to download your image!
+        </span>
       </a>
     </div>
   );
@@ -57,7 +59,7 @@ export default function DrawSection() {
             <h2 className="font-semibold text-2xl text-center mb-3">
               Select a Color
             </h2>
-            <div className="flex flex-wrap justify-center items-center mb-6">
+            <div className="flex flex-wrap justify-center items-center mb-10">
               {colors.map((color) => (
                 <button
                   key={color}
@@ -72,7 +74,7 @@ export default function DrawSection() {
             <h2 className="font-semibold text-2xl text-center mb-3">
               Select a Stroke Width
             </h2>
-            <div className="flex flex-wrap justify-center mb-6">
+            <div className="flex flex-wrap justify-center">
               {widths.map((width) => (
                 <button
                   key={width}
