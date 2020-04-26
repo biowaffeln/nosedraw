@@ -1,6 +1,6 @@
-import usePose from "../hooks/usePose";
 import { useRef, useState, useCallback } from "react";
-import { circle, clear, lerp, line } from "../util";
+import { circle, clear, lerp, line } from "./canvas/util";
+import usePose from "./canvas/usePose";
 
 const colors = [
   "#1a202c",
