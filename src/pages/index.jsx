@@ -1,4 +1,4 @@
-import Canvas from "../components/canvas";
+import DrawSection from "../components/draw-section";
 
 export default function HomePage() {
   return (
@@ -12,7 +12,7 @@ export default function HomePage() {
         </p>
       </header>
       <div>
-        <Canvas />
+        <DrawSection />
       </div>
     </div>
   );
