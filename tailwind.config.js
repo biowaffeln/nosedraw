@@ -1,7 +1,13 @@
 module.exports = {
   theme: {
-    extend: {},
+    extend: {
+      spacing: {
+        "13": "3.25rem",
+      },
+    },
   },
-  variants: {},
+  variants: {
+    boxShadow: ["responsive", "hover", "focus", "active", "group-focus"],
+  },
   plugins: [],
 };

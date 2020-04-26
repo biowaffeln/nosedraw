@@ -16,13 +16,14 @@ video {
 
 .canvas-container {
   display: grid;
+  background-color: white;
+}
+
+.canvas-container canvas {
+  z-index: 1;
 }
 
 .canvas-container > * {
   grid-area: 1 / 1;
   width: 100%;
-}
-
-.canvas-container > canvas:first-child {
-  @apply bg-white;
 }

@@ -13,13 +13,15 @@ const colors = [
   "#f687b3",
 ];
 
-const strokes = [2, 4, 8, 12, 16, 22, 30, 40];
+const widths = [2, 4, 8, 12, 16, 22, 30, 40];
 
 export default function Canvas() {
   const noseCanvasRef = useRef(null);
   const drawCanvasRef = useRef(null);
   const [pointerDown, setPointerDown] = useState(false);
-  const [showVideo, setShowVideo] = useState(true);
+  const [showWebcam, setShowWebcam] = useState(false);
+  const [lineWidth, setLineWidth] = useState(widths[1]);
+  const [strokeColor, setStrokeColor] = useState(colors[0]);
   let prevX, prevY;
 
   const [videoRef, { status, error }] = usePose(
@@ -39,41 +41,44 @@ export default function Canvas() {
           x = lerp(prevX, x, 0.5);
           y = lerp(prevY, y, 0.5);
         }
-        circle(noseCtx, x, y, 30);
+        circle(noseCtx, x, y, Math.max(lineWidth * 0.7, 4), strokeColor);
         if (prevX && pointerDown) {
-          line(drawCtx, prevX, prevY, x, y);
+          line(drawCtx, prevX, prevY, x, y, lineWidth, strokeColor);
         }
         prevX = x;
         prevY = y;
       },
-      [pointerDown]
+      [pointerDown, lineWidth, strokeColor]
     )
   );
 
   return (
-    <div className="flex flex-col lg:flex-row">
-      <div className="canvas-container rounded overflow-hidden shadow-lg w-full lg:w-1/2">
+    <div className="flex flex-col xl:flex-row max-w-2xl mx-auto xl:max-w-full">
+      <div className="canvas-container rounded overflow-hidden shadow-lg w-full xl:w-1/2 mb-12 xl:mb-0">
         <canvas ref={drawCanvasRef} width={640} height={480} />
+        <canvas ref={noseCanvasRef} width={640} height={480} />
         <video
-          style={{ visibility: showVideo ? "visible" : "hidden" }}
+          style={{ visibility: showWebcam ? "visible" : "hidden" }}
           ref={videoRef}
           width={640}
           height={480}
           autoPlay
         />
-        <canvas ref={noseCanvasRef} width={640} height={480} />
       </div>
-      <div className="flex flex-col justify-between w-full lg:w-1/2 lg:px-8 text-lg">
+      <div className="flex flex-col-reverse xl:flex-col justify-between w-full xl:w-1/2 xl:px-8 text-lg">
         <div>
           <h2 className="font-semibold text-2xl text-center mb-3">
             Select a Color
           </h2>
-          <div className="flex flex-wrap justify-center mb-6">
+          <div className="flex flex-wrap justify-center items-center mb-6">
             {colors.map((color) => (
-              <div
+              <button
                 key={color}
                 style={{ backgroundColor: color }}
-                className="w-10 h-10 mr-3 mb-2 rounded-full"
+                className={`mr-4 mb-2 rounded-full focus:outline-none focus:shadow-outline  ${
+                  color === strokeColor ? "w-13 h-13" : "w-10 h-10"
+                }`}
+                onClick={() => setStrokeColor(color)}
               />
             ))}
           </div>
@@ -81,28 +86,40 @@ export default function Canvas() {
             Select a Stroke Width
           </h2>
           <div className="flex flex-wrap justify-center mb-6">
-            {strokes.map((stroke) => (
-              <div key={stroke}>
-                <div className="w-10 h-10 mr-3 mb-2 flex flex-col items-center justify-center">
+            {widths.map((width) => (
+              <button
+                key={width}
+                className="focus:outline-none group flex flex-col items-center mr-2"
+                onClick={() => setLineWidth(width)}
+              >
+                <div className="w-10 h-10 mb-4 flex flex-col items-center justify-center">
                   <div
-                    style={{ width: stroke, height: stroke }}
-                    className="bg-gray-900 rounded-full"
+                    style={{ width: width, height: width }}
+                    className="bg-gray-900 rounded-full group-focus:shadow-outline"
                   />
                 </div>
-                <p className="text-sm text-center">{stroke}px</p>
-              </div>
+                <span
+                  className={`text-sm text-center border-2 rounded py-1 px-2 ${
+                    lineWidth === width
+                      ? "border-gray-600"
+                      : "border-transparent"
+                  }`}
+                >
+                  {width}px
+                </span>
+              </button>
             ))}
           </div>
         </div>
-        <div className="flex flex-col">
+        <div className="flex flex-col-reverse xl:flex-col mb-6 xl:mb-0">
           <button
-            onClick={() => setShowVideo((s) => !s)}
-            className="py-3 px-4 font-semibold text-center mb-2"
+            onClick={() => setShowWebcam((s) => !s)}
+            className="py-3 px-4 font-semibold text-center mb-2 rounded focus:outline-none focus:shadow-outline"
           >
-            {showVideo ? "hide" : "show"} video
+            {showWebcam ? "hide" : "show"} webcam
           </button>
           <button
-            className="py-3 px-4 shadow-md bg-indigo-600 font-semibold text-gray-100 rounded"
+            className="py-3 px-4 shadow-md bg-indigo-600 font-semibold text-gray-100 rounded focus:outline-none focus:shadow-outline"
             onPointerDown={() => setPointerDown(true)}
             onPointerUp={() => setPointerDown(false)}
           >

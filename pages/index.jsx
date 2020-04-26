@@ -3,7 +3,7 @@ import Canvas from "../src/components/canvas";
 export default function HomePage() {
   return (
     <div className="container mx-auto px-6 font-sans">
-      <header className="py-5 text-center">
+      <header className="py-5 text-center mb-6">
         <h1 className="text-4xl md:text-5xl mb-2 font-bold leading-tight">
           Welcome to nosedraw!
         </h1>
