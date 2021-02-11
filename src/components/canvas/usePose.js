@@ -1,4 +1,4 @@
-import { useRef, useEffect, useReducer } from "react";
+import { useRef, useEffect, useReducer, useState } from "react";
 import * as posenet from "@tensorflow-models/posenet";
 
 async function setupCamera(video) {
@@ -9,9 +9,11 @@ async function setupCamera(video) {
     });
     video.srcObject = stream;
 
+    const { width, height } = stream.getVideoTracks()[0].getSettings();
+
     return new Promise((resolve) => {
       video.onloadeddata = () => {
-        resolve();
+        resolve({ width, height });
       };
     });
   } catch (e) {
@@ -44,13 +46,15 @@ export default function usePose(callback) {
   const videoRef = useRef();
   const posenetRef = useRef();
   const [state, dispatch] = useReducer(reducer, defaultState);
+  const [dimensions, setDimensions] = useState({});
   let intervalId;
 
   /* load posenet */
   useEffect(() => {
     (async () => {
       try {
-        await setupCamera(videoRef.current);
+        const dimensions = await setupCamera(videoRef.current);
+        setDimensions(dimensions);
         if (!posenetRef.current) posenetRef.current = await posenet.load();
         /* net successfully loaded */
         dispatch({ type: "success" });
@@ -80,5 +84,5 @@ export default function usePose(callback) {
     };
   }, [callback, state]);
 
-  return [videoRef, state];
+  return [videoRef, state, dimensions];
 }

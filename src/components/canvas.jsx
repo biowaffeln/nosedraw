@@ -12,7 +12,7 @@ export default function Canvas({
   const noseCanvasRef = useRef(null);
   let prevX, prevY;
 
-  const [videoRef, { status }] = usePose(
+  const [videoRef, { status }, dimensions] = usePose(
     useCallback(
       (pose) => {
         /* should never actually be undefined, but who knows */
@@ -40,6 +40,9 @@ export default function Canvas({
     )
   );
 
+  const width = dimensions.width || 640;
+  const height = dimensions.height || 480;
+
   return (
     <div className="canvas-container rounded overflow-hidden shadow-lg">
       <div className="flex flex-col justify-center items-center">
@@ -53,13 +56,13 @@ export default function Canvas({
           </>
         )}
       </div>
-      <canvas ref={canvasRef} width={640} height={480} />
-      <canvas ref={noseCanvasRef} width={640} height={480} />
+      <canvas ref={canvasRef} width={width} height={height} />
+      <canvas ref={noseCanvasRef} width={width} height={height} />
       <video
         style={{ visibility: showWebcam ? "visible" : "hidden" }}
         ref={videoRef}
-        width={640}
-        height={480}
+        width={width}
+        height={height}
         autoPlay
       />
     </div>
