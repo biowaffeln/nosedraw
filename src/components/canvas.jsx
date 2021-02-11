@@ -44,7 +44,7 @@ export default function Canvas({
   const height = dimensions.height || 480;
 
   return (
-    <div className="canvas-container rounded overflow-hidden shadow-lg">
+    <div className="canvas-container rounded overflow-hidden border-2 border-gray-900 shadow-brutalist">
       <div className="flex flex-col justify-center items-center">
         {status === "loading" && (
           <p className="font-semibold text-2xl">loading posenet...</p>

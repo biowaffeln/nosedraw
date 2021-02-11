@@ -26,7 +26,7 @@ const SaveImage = ({ canvas, className }) => {
           ?.toDataURL("image/png")
           .replace("image/png", "image/octet-stream")}
       >
-        <span className="leading-relaxed border-b-2 border-indigo-600">
+        <span className="leading-relaxed border-b-2 font-semibold border-indigo-600">
           Click here to download your image!
         </span>
       </a>
@@ -64,7 +64,7 @@ export default function DrawSection() {
                 <button
                   key={color}
                   style={{ backgroundColor: color }}
-                  className={`mr-4 mb-2 rounded-full focus:outline-none focus:shadow-outline  ${
+                  className={`mr-4 mb-2 rounded-full focus-visible:outline-black ${
                     color === strokeColor ? "w-13 h-13" : "w-10 h-10"
                   }`}
                   onClick={() => setStrokeColor(color)}
@@ -78,13 +78,13 @@ export default function DrawSection() {
               {widths.map((width) => (
                 <button
                   key={width}
-                  className="focus:outline-none group flex flex-col items-center mr-2"
+                  className="focus-visible:outline-black flex flex-col items-center mr-2"
                   onClick={() => setLineWidth(width)}
                 >
                   <div className="w-10 h-10 mb-4 flex flex-col items-center justify-center">
                     <div
                       style={{ width: width, height: width }}
-                      className="bg-gray-900 rounded-full group-focus:shadow-outline"
+                      className="bg-gray-900 rounded-full"
                     />
                   </div>
                   <span
@@ -103,12 +103,12 @@ export default function DrawSection() {
           <div className="flex flex-col-reverse xl:flex-col mb-6 xl:mb-0">
             <button
               onClick={() => setShowWebcam((s) => !s)}
-              className="py-3 px-4 font-semibold text-center mb-2 rounded focus:outline-none focus:shadow-outline"
+              className="py-3 px-4 font-semibold text-center mb-2 rounded focus-visible:outline-black"
             >
               {showWebcam ? "hide" : "show"} webcam
             </button>
             <button
-              className="py-3 px-4 shadow-md bg-indigo-600 font-semibold text-gray-100 rounded focus:outline-none focus:shadow-outline"
+              className="py-3 px-4 bg-indigo-600 font-semibold text-gray-100 rounded-md focus-visible:outline-black"
               onPointerDown={() => setPointerDown(true)}
               onPointerUp={() => setPointerDown(false)}
             >

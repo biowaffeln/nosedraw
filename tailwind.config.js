@@ -1,13 +1,20 @@
 module.exports = {
+  purge: ["./src/pages/**/*.jsx", "./src/components/**/*.jsx"],
+  darkMode: "media",
   theme: {
     extend: {
       spacing: {
-        "13": "3.25rem",
+        13: "3.25rem",
+      },
+      boxShadow: {
+        brutalist: "3px 3px",
       },
     },
   },
   variants: {
-    boxShadow: ["responsive", "hover", "focus", "active", "group-focus"],
+    extend: {
+      outline: ["focus-visible"],
+    },
   },
   plugins: [],
 };
