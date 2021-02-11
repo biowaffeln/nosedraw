@@ -79,7 +79,6 @@ export default function usePose(callback) {
     intervalId = setInterval(loop, 100);
     /* clear animation */
     return () => {
-      console.log("cancel");
       intervalId && clearInterval(intervalId);
     };
   }, [callback, state]);
