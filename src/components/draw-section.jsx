@@ -108,9 +108,12 @@ export default function DrawSection() {
               {showWebcam ? "hide" : "show"} webcam
             </button>
             <button
-              className="py-3 px-4 bg-indigo-600 font-semibold text-gray-100 rounded-md focus-visible:outline-black"
+              className="py-3 px-4 bg-indigo-600 active:bg-indigo-800
+                         transition duration-150
+                         font-semibold text-gray-100 rounded-md select-none focus-visible:outline-black"
               onPointerDown={() => setPointerDown(true)}
               onPointerUp={() => setPointerDown(false)}
+              onContextMenu={(e) => e.preventDefault()}
             >
               press here to draw
             </button>
