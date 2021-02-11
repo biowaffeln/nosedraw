@@ -1,9 +1,11 @@
 import DrawSection from "../components/draw-section";
+import GithubCorner from "react-github-corner";
 
 export default function HomePage() {
   return (
     <div className="container max-w-screen-xl mx-auto px-6 font-sans">
-      <header className="pt-16 pb-8 text-center mb-10">
+      <GithubCorner href="https://github.com/biowaffeln/nosedraw" />
+      <header className="pt-16 xl:pb-4 text-center mb-10">
         <h1 className="text-4xl md:text-5xl mb-2 font-bold leading-tight">
           Welcome to Nosedraw!
         </h1>
