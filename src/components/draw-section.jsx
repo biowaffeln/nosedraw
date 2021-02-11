@@ -59,22 +59,22 @@ export default function DrawSection() {
             <h2 className="font-semibold text-2xl text-center mb-3">
               Select a Color
             </h2>
-            <div className="flex flex-wrap justify-center items-center mb-10">
+            <div className="grid grid-cols-4 gap-y-2 sm:grid-cols-8 items-center justify-items-center mb-10 mx-10">
               {colors.map((color) => (
                 <button
                   key={color}
                   style={{ backgroundColor: color }}
-                  className={`mr-4 mb-2 rounded-full focus-visible:outline-black ${
-                    color === strokeColor ? "w-13 h-13" : "w-10 h-10"
+                  className={`rounded-full focus-visible:outline-black transition-all duration-150 ${
+                    color === strokeColor ? "w-13 h-13 my-0" : "w-10 h-10 my-2"
                   }`}
                   onClick={() => setStrokeColor(color)}
                 />
               ))}
             </div>
-            <h2 className="font-semibold text-2xl text-center mb-3">
+            <h2 className="font-semibold text-2xl text-center mb-3 pt-2">
               Select a Stroke Width
             </h2>
-            <div className="flex flex-wrap justify-center">
+            <div className="grid grid-cols-4 gap-y-2 sm:grid-cols-8 justify-center mx-10">
               {widths.map((width) => (
                 <button
                   key={width}
@@ -88,7 +88,7 @@ export default function DrawSection() {
                     />
                   </div>
                   <span
-                    className={`text-sm text-center border-2 rounded py-1 px-2 ${
+                    className={`text-sm text-center border-2 rounded py-1 px-2 transition-all duration-150 ${
                       lineWidth === width
                         ? "border-gray-600"
                         : "border-transparent"
